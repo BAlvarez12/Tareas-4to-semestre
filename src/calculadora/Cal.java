@@ -29,16 +29,44 @@ import java.util.ArrayList;
 /**
  *
  * @author Bomiki
+ * 
+
  */
+
+
 public class Cal extends javax.swing.JFrame {
 
     public float primernumero;
     public float segundonumero;
     public String operador;
+    public String resu;
+    
+    
+    public String sincero(float resultado){
+        String retorno="";
+        
+        retorno=Float.toString(resultado);
+        
+        if(resultado%1==0){ 
+            retorno=retorno.substring(0, retorno.length()-2);
+        
+        }  //retorna el resultado dado en entero si este tiene decimales en 0
+        resu = retorno; //retorna el resultado en la variable resu
+        return retorno; //retorna el resultado de la clase sincero
+    }
     
     /**
      * Creates new form Cal
      */
+    private void bitacora(String numeros){
+        String filePath = "bitacoraCalculadora.txt";
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+        writer.write(numeros);
+        writer.newLine();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    }
     
     private void beep(String Sonido) {
         try {
@@ -418,18 +446,21 @@ public class Cal extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.ventana.setText(this.ventana.getText()+"3");
         beep("C:\\Users\\Bomiki\\Music\\beep.wav");
+        
     }//GEN-LAST:event_Button_3ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         // TODO add your handling code here:
         this.ventana.setText(this.ventana.getText()+"6");
         beep("C:\\Users\\Bomiki\\Music\\beep.wav");
+       
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void button_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_0ActionPerformed
         // TODO add your handling code here:
         this.ventana.setText(this.ventana.getText()+"0");
         beep("C:\\Users\\Bomiki\\Music\\beep.wav");
+        
     }//GEN-LAST:event_button_0ActionPerformed
 
     private void Button_pActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_pActionPerformed
@@ -437,17 +468,23 @@ public class Cal extends javax.swing.JFrame {
         if(!(this.ventana.getText().contains("."))){
             this.ventana.setText(this.ventana.getText()+".");
             beep("C:\\Users\\Bomiki\\Music\\beep.wav");
+           
     }//GEN-LAST:event_Button_pActionPerformed
     }
     private void Button_iActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_iActionPerformed
         // TODO add your handling code here:
         this.segundonumero=Float.parseFloat(this.ventana.getText());
         beep("C:\\Users\\Bomiki\\Music\\beep.wav");
+        
         switch(this.operador){
-            case "+":this.ventana.setText(sincero(primernumero+this.segundonumero));break;
-            case "-":this.ventana.setText(sincero(primernumero-this.segundonumero));break;
-            case "*":this.ventana.setText(sincero(primernumero*this.segundonumero));break;
-            case "/":this.ventana.setText(sincero(primernumero/this.segundonumero));break;
+            case "+":this.ventana.setText(sincero(primernumero+this.segundonumero));
+            bitacora(+primernumero+" + "+segundonumero+ " = " + resu); break;//escribe el primer numero + el segundo numero = el resultado "resu" en el archivo txt
+            case "-":this.ventana.setText(sincero(primernumero-this.segundonumero));
+              bitacora(+primernumero+" - "+segundonumero+ " = " + resu); break;
+            case "*":this.ventana.setText(sincero(primernumero*this.segundonumero));
+              bitacora(+primernumero+" * "+segundonumero+ " = " + resu); break;
+            case "/":this.ventana.setText(sincero(primernumero/this.segundonumero));
+              bitacora(+primernumero+" / "+segundonumero+ " = " + resu); break;
        
             
     }//GEN-LAST:event_Button_iActionPerformed
@@ -533,12 +570,13 @@ public class Cal extends javax.swing.JFrame {
         this.operador="/";
         this.ventana.setText("");
         beep("C:\\Users\\Bomiki\\Music\\beep.wav");
+     
 
     }//GEN-LAST:event_Button_DActionPerformed
 
     private void Nuevo_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nuevo_txtActionPerformed
         // TODO add your handling code here:
-        String filePath = "bitacoraCalculadora.txt";
+    String filePath = "bitacoraCalculadora.txt";
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
         for (Double number : calculatedNumbers) {
             writer.write(number.toString());
@@ -548,21 +586,9 @@ public class Cal extends javax.swing.JFrame {
     } catch (IOException e) {
         e.printStackTrace();
     }
-                           
         
     }//GEN-LAST:event_Nuevo_txtActionPerformed
 
-    public String sincero(float resultado){
-        String retorno="";
-        
-        retorno=Float.toString(resultado);
-        
-        if(resultado%1==0){
-            retorno=retorno.substring(0, retorno.length()-2);
-        
-        }
-        return retorno;
-    }
     /**
      * @param args the command line arguments
      */
@@ -625,4 +651,5 @@ public class Cal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel ventana;
     // End of variables declaration//GEN-END:variables
+
 }
