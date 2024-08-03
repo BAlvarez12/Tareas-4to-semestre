@@ -7,6 +7,7 @@ package calculadora;
 //Controla los eventos del teclado
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedReader;
 import javax.swing.JFrame;
 
 //Maneja la reproduccion de sonido en la computadora
@@ -20,6 +21,7 @@ import java.io.IOException;
 
 //Crear un archivo txt
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
@@ -57,8 +59,9 @@ public class Cal extends javax.swing.JFrame {
     
     /**
      * Creates new form Cal
+     * @param numeros
      */
-    private void bitacora(String numeros){
+   public void bitacora(String numeros){
         String filePath = "bitacoraCalculadora.txt";
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
         writer.write(numeros);
@@ -67,6 +70,7 @@ public class Cal extends javax.swing.JFrame {
         e.printStackTrace();
     }
     }
+   
     
     private void beep(String Sonido) {
         try {
@@ -102,20 +106,26 @@ public class Cal extends javax.swing.JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 char c = e.getKeyChar();
+                beep("C:\\Users\\Bomiki\\Music\\beep.wav");
                 if (Character.isDigit(c) || c == '.') {
                     ventana.setText(ventana.getText() + c);
                 } else if (c == '+') {
                     executeOperation("+");
+                    beep("C:\\Users\\Bomiki\\Music\\beep.wav");
                 } else if (c == '-') {
                     executeOperation("-");
+                    beep("C:\\Users\\Bomiki\\Music\\beep.wav");
                 } else if (c == '*') {
                     executeOperation("*");
+                    beep("C:\\Users\\Bomiki\\Music\\beep.wav");
                 } else if (c == '/') {
                     executeOperation("/");
+                    beep("C:\\Users\\Bomiki\\Music\\beep.wav");
                 } else if (c == KeyEvent.VK_ENTER) {
                     executeEquals();
                 } else if (c == 'C' || c == 'c') {
                     ventana.setText("");
+                    beep("C:\\Users\\Bomiki\\Music\\beep.wav");
                 }
             }
 
@@ -132,6 +142,7 @@ public class Cal extends javax.swing.JFrame {
         primernumero = Float.parseFloat(ventana.getText());
         operador = operation;
         ventana.setText("");
+
     }
 
     private void executeEquals() {
@@ -415,6 +426,11 @@ public class Cal extends javax.swing.JFrame {
         jMenu1.add(Nuevo_txt);
 
         jMenuItem2.setText("Historial");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
@@ -422,6 +438,11 @@ public class Cal extends javax.swing.JFrame {
         jMenu2.setText("Ayuda");
 
         jMenuItem3.setText("Manual de usuario");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem3);
 
         jMenuBar1.add(jMenu2);
@@ -576,18 +597,53 @@ public class Cal extends javax.swing.JFrame {
 
     private void Nuevo_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nuevo_txtActionPerformed
         // TODO add your handling code here:
-    String filePath = "bitacoraCalculadora.txt";
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
-        for (Double number : calculatedNumbers) {
-            writer.write(number.toString());
-            writer.newLine();
-        }
-        writer.flush();
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-        
+    this.ventana.setText("");
     }//GEN-LAST:event_Nuevo_txtActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        FileReader archivo;
+        BufferedReader lector;
+        
+        try{
+            archivo = new FileReader("C:\\Users\\Bomiki\\Documents\\NetBeansProjects\\Calculadora\\bitacoraCalculadora.txt");
+            
+            if(archivo.ready()){
+                lector = new BufferedReader(archivo);
+                String cadena;
+                while((cadena = lector.readLine())!=null){
+                    System.out.println(cadena);
+                }
+            }else{
+                System.out.println("Error al leer el archivo");
+            }
+        }catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+        
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        FileReader archivo;
+        BufferedReader lector;
+        
+        try{
+            archivo = new FileReader("C:\\Users\\Bomiki\\Documents\\NetBeansProjects\\Calculadora\\Manual de usuario.txt");
+            
+            if(archivo.ready()){
+                lector = new BufferedReader(archivo);
+                String cadena;
+                while((cadena = lector.readLine())!=null){
+                    System.out.println(cadena);
+                }
+            }else{
+                System.out.println("Error al leer el archivo");
+            }
+        }catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments

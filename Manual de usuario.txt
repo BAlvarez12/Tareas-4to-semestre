@@ -1,0 +1,49 @@
+Manual de usuario
+
+
+1. Boton Nuevo:
+
+	Reinicia la calculadora poniendola en 0
+
+2. Historial:
+	
+	Ejecuta el archivo bitacoraCalculadora.txt mostrandonos los datos
+	que tiene guardados como historial.
+
+3. Sonido Beep:
+
+	La ejecucion del sonido Beep lo hace presionando los botone de la
+	calculadora o presionando los botones del teclado.	
+	
+	para utilizar los botones del teclado es de presionarlos al iniciar 
+	la aplicacion la primera vez, si precionamos primero los botones y 
+	no las teclas, este no funcionara.
+
+4. Boton de Ayuda:
+	
+	Al presionarlo desplegara este manual que esta leyendo actualmente.
+
+5. Configurar sonido Beep:
+
+	Para la configuracion de este sonido debemos tener un sonido en
+	formato "WAV". teniendo este formato copiaremos la direccion en	
+	donde se encuentra guardado.  como ejemplo:
+
+		beep("C:\\Users\\trull\\Music\\beep.wav");
+
+	colocamos ese codigo junto con la direccion en donde se encuentra
+	el formato "WAV" en los botones que deseamos que haga sonido.
+
+6. Configurar el historial:
+
+	El sistema automaticamente al iniciarlo crea el archivo bitacoraCalculadora.txt
+	en el numero de linea 609 tendremos una linea de codigo de esta manera:
+
+	archivo = new FileReader("C:\\Users\\trull\\Documents\\NetBeansProjects\\Calculadora\\bitacoraCalculadora.txt");
+	
+	Colocamos la direccion de donde se crea el archivo (Actualmente se crea en el
+	repositorio del proyecto) esto con la finalidad de que si es borrado y se genera
+	uno nuevo, este siempre sea leido por el sistema.
+
+
+	
